@@ -1,0 +1,36 @@
+<camel>
+
+    <!-- 
+       This is where Camel processors must be migrated.
+    -->
+    <bean name="..." type="..."/>
+
+     <!-- 
+       This is where the content of the Camel <route> must be migrated.
+    -->
+   
+    <!-- <route id="myroute">
+        <from uri="direct:..."/>
+
+    </route> -->
+    <route id="_route1">
+            <from id="_from4" uri="direct://getCustById"/>
+            <log id="_log2" message="cxf operation name------${header.operationName}"/>
+            <setHeader name="fuseversion">
+			    <simple>{{fuse.version}}</simple>        
+			</setHeader>
+            <log id="_log3" message="fuse.version----------- ${headers.fuseversion}"/>
+            <log id="_log4" message="id----------- ${header.id}"/>
+            <choice id="_choice1">
+                <when id="_when1">
+                    <!-- <simple>${header.operationName} == "status"</simple> -->
+                    <simple> "status" == "status" </simple>
+                    <bean id="_bean3" method="status(${header.id},${headers.fuseversion})" ref="claimProcessor"/>
+                    <marshal id="_marshal1">
+                        <json library="Jackson" prettyPrint="true"/>
+                    </marshal>
+                </when>
+            </choice>
+        </route>
+
+</camel>

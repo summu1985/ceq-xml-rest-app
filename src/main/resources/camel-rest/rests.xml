@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<rests xmlns="http://camel.apache.org/schema/spring">
+    <rest path="/cxf/status">
+        <get id="getCustById" path="/custId/{id}">
+            <param dataType="integer" description="ID of customer" name="id" required="true" type="path"/>
+            <to uri="direct:getCustById"/>
+        </get>
+    </rest>
+</rests>
